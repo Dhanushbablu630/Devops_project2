@@ -41,6 +41,17 @@ pipeline {
             }
         }
 
+        stage('Debug AWS Identity') {
+            steps {
+                withAWS(credentials: 'aws-creds', region: "$AWS_REGION") {
+                    sh '''
+                        echo "Checking which IAM identity Jenkins is using..."
+                        aws sts get-caller-identity
+                    '''
+                }
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 withAWS(credentials: 'aws-creds', region: "$AWS_REGION") {

@@ -31,8 +31,12 @@ GitHub → Jenkins → Docker → Amazon ECR → EKS → LoadBalancer → Browse
 ```bash
 git clone <your-repo-url>
 cd <your-repo-directory>
-2. Build Docker image
+```
+
+# 2. Build Docker image
+```
 docker build -t <image-name>:latest .
+
 3. Push Docker image to ECR
 aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <aws-account-id>.dkr.ecr.<region>.amazonaws.com
 docker tag <image-name>:latest <aws-account-id>.dkr.ecr.<region>.amazonaws.com/<repository-name>:latest

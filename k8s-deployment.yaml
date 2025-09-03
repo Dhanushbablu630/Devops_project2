@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: your-dockerhub-username/myapp:latest
+        image: 842871321276.dkr.ecr.us-east-1.amazonaws.com/devops_2:latest
         ports:
         - containerPort: 5000
 ---
@@ -32,4 +32,3 @@ spec:
       port: 80
       targetPort: 5000
   type: LoadBalancer
-

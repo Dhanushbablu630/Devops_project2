@@ -48,11 +48,14 @@ pipeline {
                         echo "Setting up kubeconfig..."
                         aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME
 
-                        echo "Updating Kubernetes deployment..."
-                        kubectl set image deployment/myapp-deployment myapp=$ECR_REPO:$BUILD_NUMBER --record || true
+                        
 
                         echo "Applying deployment manifest..."
                         kubectl apply -f k8s-deployment.yaml
+                        
+                        echo "Updating Kubernetes deployment..."
+                        kubectl set image deployment/myapp-deployment myapp=$ECR_REPO:$BUILD_NUMBER --record || true
+                        
                     '''
                 }
             }

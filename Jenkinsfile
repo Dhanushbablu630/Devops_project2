@@ -6,7 +6,7 @@ pipeline {
         ECR_ACCOUNT_ID = "842871321276"
         ECR_REPO_NAME  = "devops_2"
         ECR_REPO       = "${ECR_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}"
-        CLUSTER_NAME   = "eks-cluster-devops"   
+        CLUSTER_NAME   = "eks-cluster-devops"
     }
 
     stages {
@@ -43,16 +43,21 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh '''
-                    echo "Setting up kubeconfig..."
-                    aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME
+                withAWS(credentials: 'aws-creds', region: "$AWS_REGION") {
+                    sh '''
+                        echo "Setting up kubeconfig..."
+                        aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME --alias $CLUSTER_NAME
 
-                    echo "Applying deployment manifest..."
-                    kubectl apply -f k8s-deployment.yaml
-                    
-                    echo "Updating Kubernetes deployment..."
-                    kubectl set image deployment/myapp-deployment myapp=$ECR_REPO:$BUILD_NUMBER || true
-                '''
+                        echo "Testing Kubernetes access..."
+                        kubectl get nodes
+
+                        echo "Applying deployment manifest..."
+                        kubectl apply -f k8s-deployment.yaml
+
+                        echo "Updating Kubernetes deployment..."
+                        kubectl set image deployment/myapp-deployment myapp=$ECR_REPO:$BUILD_NUMBER || true
+                    '''
+                }
             }
         }
     }

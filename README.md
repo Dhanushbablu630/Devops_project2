@@ -33,52 +33,62 @@ git clone <your-repo-url>
 cd <your-repo-directory>
 ```
 
-# 2. Build Docker image
+### 2. Build Docker image
 ```
 docker build -t <image-name>:latest .
-
-3. Push Docker image to ECR
+```
+### 3. Push Docker image to ECR
+```
 aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <aws-account-id>.dkr.ecr.<region>.amazonaws.com
 docker tag <image-name>:latest <aws-account-id>.dkr.ecr.<region>.amazonaws.com/<repository-name>:latest
 docker push <aws-account-id>.dkr.ecr.<region>.amazonaws.com/<repository-name>:latest
-4. Create EKS cluster (using eksctl)
+```
+### 4. Create EKS cluster (using eksctl)
+```
 eksctl create cluster \
   --name my-eks-cluster \
   --region <region> \
   --nodes 2 \
   --node-type t3.small
-5. Configure kubectl for EKS
+```
+### 5. Configure kubectl for EKS
+```
 aws eks --region <region> update-kubeconfig --name my-eks-cluster
 kubectl get nodes
-6. Deploy application to Kubernetes
+```
+
+### 6. Deploy application to Kubernetes
+```
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 kubectl get pods
 kubectl get svc
-7. Access the application
+```
 
-Open the EXTERNAL-IP of the LoadBalancer service in a browser.
+### 7. Access the application
 
-Learning Outcomes
+- Open the EXTERNAL-IP of the LoadBalancer service in a browser.
 
-Hands-on experience with CI/CD pipelines using Jenkins.
+**Learning Outcomes**
 
-Containerizing applications using Docker.
+- Hands-on experience with CI/CD pipelines using Jenkins.
 
-Managing AWS resources like ECR and EKS.
+- Containerizing applications using Docker.
 
-Deploying applications in Kubernetes using manifests.
+- Managing AWS resources like ECR and EKS.
 
-Understanding cluster, node, pod, service concepts in Kubernetes.
+- Deploying applications in Kubernetes using manifests.
 
-Managing pipeline automation for continuous deployment.
+- Understanding cluster, node, pod, service concepts in Kubernetes.
 
-Notes
+- Managing pipeline automation for continuous deployment.
 
-This project was implemented using AWS Free Tier (t2.micro/t3.small for nodes).
+**Notes**
 
-For multiple pods or larger applications, node size must be increased due to resource limitations.
+- This project was implemented using AWS Free Tier (t2.micro/t3.small for nodes).
 
-Manual changes inside running pods are ephemeral and will be reset on redeployment.
+- For multiple pods or larger applications, node size must be increased due to resource limitations.
+
+- Manual changes inside running pods are ephemeral and will be reset on redeployment.
 
 

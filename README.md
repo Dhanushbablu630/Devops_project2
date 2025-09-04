@@ -1,4 +1,4 @@
-# Jenkins + Docker + EKS CI/CD Project
+# Automated CI/CD Pipeline with Jenkins, Docker, and Amazon EKS
 
 ## Project Overview
 

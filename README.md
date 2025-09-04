@@ -69,6 +69,8 @@ kubectl get svc
 
 - Open the EXTERNAL-IP of the LoadBalancer service in a browser.
 
+---
+
 # Learning Outcomes
 
 - Hands-on experience with CI/CD pipelines using Jenkins.
@@ -82,6 +84,7 @@ kubectl get svc
 - Understanding cluster, node, pod, service concepts in Kubernetes.
 
 - Managing pipeline automation for continuous deployment.
+---
 
 # Notes
 

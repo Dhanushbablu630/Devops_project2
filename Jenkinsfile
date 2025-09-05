@@ -6,7 +6,7 @@ pipeline {
         ECR_ACCOUNT_ID = "842871321276"
         ECR_REPO_NAME  = "devops_2"
         ECR_REPO       = "${ECR_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}"
-        CLUSTER_NAME   = "my-eks-cluster"
+        CLUSTER_NAME   = "eks-cluster-devops"
         KUBECONFIG     = "/var/lib/jenkins/.kube/config"
     }
 

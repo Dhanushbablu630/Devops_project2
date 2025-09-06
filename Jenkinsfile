@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         AWS_REGION     = "us-east-1"
-        ECR_ACCOUNT_ID = "842871321276"  # use your ecr account id
+        ECR_ACCOUNT_ID = "842871321276"   // use your ecr account id
         ECR_REPO_NAME  = "project/weather-dashboard"
         ECR_REPO       = "${ECR_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}"
-        CLUSTER_NAME   = "my-eks-cluster"
+        CLUSTER_NAME   = "my-eks-cluster" // your cluster name
         KUBECONFIG     = "/var/lib/jenkins/.kube/config"
     }
 
@@ -14,7 +14,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Dhanushbablu630/Devops_project2.git'    # use your git repo url
+                git branch: 'main', url: 'https://github.com/Dhanushbablu630/Devops_project2.git'    // use your git repo url
             }
         }
 

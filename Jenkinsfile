@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_REGION     = "us-east-1"
         ECR_ACCOUNT_ID = "842871321276"
-        ECR_REPO_NAME  = "devops_2"
+        ECR_REPO_NAME  = "project/weather-dashboard"
         ECR_REPO       = "${ECR_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}"
         CLUSTER_NAME   = "my-eks-cluster"
         KUBECONFIG     = "/var/lib/jenkins/.kube/config"
@@ -59,11 +59,11 @@ pipeline {
                     echo "Testing Kubernetes access..."
                     kubectl get nodes
 
-                    echo "Applying deployment manifest..."
+                    echo "Applying Weather Dashboard manifest..."
                     kubectl apply -f k8s-deployment.yaml
 
-                    echo "Updating Kubernetes deployment..."
-                    kubectl set image deployment/myapp-deployment myapp=$ECR_REPO:$BUILD_NUMBER || true
+                    echo "Updating Kubernetes deployment image..."
+                    kubectl set image deployment/weather-dashboard-deployment weather-dashboard=$ECR_REPO:$BUILD_NUMBER || true
                 '''
             }
         }

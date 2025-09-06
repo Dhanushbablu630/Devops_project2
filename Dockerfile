@@ -1,5 +1,9 @@
-# Use official Python runtime
+# Use official Python runtime as base image
 FROM python:3.9-slim
+
+# Set environment variables (to prevent Python from buffering stdout/stderr)
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Set working directory
 WORKDIR /app
@@ -8,12 +12,11 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app files
+# Copy application files
 COPY . .
 
-# Expose port
+# Expose Flask app port
 EXPOSE 5000
 
-# Run the application
+# Start Flask app
 CMD ["python", "app.py"]
-

@@ -1,38 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: weather-dashboard-deployment
+  name: myapp-deployment       # ✅ reuse existing deployment
   labels:
-    app: weather-dashboard
+    app: myapp
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: weather-dashboard
+      app: myapp
   template:
     metadata:
       labels:
-        app: weather-dashboard
+        app: myapp
     spec:
       containers:
-      - name: weather-dashboard
+      - name: myapp
         image: 842871321276.dkr.ecr.us-east-1.amazonaws.com/weather-dashboard:latest
         ports:
         - containerPort: 5000
         env:
         - name: WEATHER_API_KEY
-          value: "d302e90f91ba81bd357cd4b6af985553"   # Replace with your real API key
+          value: "d302e90f91ba81bd357cd4b6af985553"   # 🔑 your API key
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: weather-dashboard-service
+  name: myapp-service          # ✅ reuse existing service
 spec:
   selector:
-    app: weather-dashboard
+    app: myapp
   ports:
     - protocol: TCP
-      port: 80        # Exposed service port
-      targetPort: 5000  # Flask app port
+      port: 80
+      targetPort: 5000
   type: LoadBalancer
-

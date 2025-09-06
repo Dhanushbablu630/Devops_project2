@@ -1,0 +1,13 @@
+body {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  color: white;
+  max-width: 500px;
+  width: 100%;
+}

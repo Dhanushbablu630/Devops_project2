@@ -21,7 +21,7 @@ spec:
         - containerPort: 5000
         env:
         - name: WEATHER_API_KEY
-          value: "d302e90f91ba81bd357cd4b6af985553"   # 🔑 replace with your real API key
+          value: "*************"   # 🔑 replace with your real API key
 ---
 apiVersion: v1
 kind: Service

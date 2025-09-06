@@ -2,7 +2,16 @@
 
 ## Project Overview
 
-This project demonstrates a **complete CI/CD pipeline** where an application is automatically built, containerized, pushed to Amazon ECR, and deployed to an Amazon EKS cluster using Kubernetes.  
+This project demonstrates a **complete CI/CD pipeline** where an application is automatically built, containerized, pushed to Amazon ECR, and deployed to an Amazon EKS cluster using Kubernetes.
+- 1. Built from source code.
+
+- 2.Containerized using Docker.
+
+- 3.Pushed to Amazon ECR (Elastic Container Registry).
+
+- 4.Deployed to an Amazon EKS (Elastic Kubernetes Service) cluster.
+
+- 5.Exposed publicly via a Kubernetes LoadBalancer service.
 
 **Key Achievements:**
 - Automated building and deployment of applications using **Jenkins pipelines**.
@@ -24,6 +33,32 @@ GitHub → Jenkins → Docker → Amazon ECR → EKS → LoadBalancer → Browse
 - **LoadBalancer**: Exposes the application publicly.
 
 ---
+## Prerequisites
+
+- 1.Before starting, make sure you have:
+
+- 2.An AWS account with proper permissions.
+
+- 3.A Jenkins server running with Docker installed.
+
+- 4.IAM roles allowing EKS and ECR access.
+
+- 5.Your local machine or Jenkins server must have:
+``` bash
+# Install AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+# Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+
+# Install eksctl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+```
 
 ## Steps & Commands
 
@@ -64,6 +99,18 @@ kubectl apply -f service.yaml
 kubectl get pods
 kubectl get svc
 ```
+---
+## Update application via Jenkins pipeline
+
+The Jenkins pipeline automatically:
+
+Pulls the latest code from GitHub.
+
+Builds a Docker image.
+
+Pushes the image to ECR.
+
+Updates the Kubernetes deployment with the new image.
 
 ### 7. Access the application
 
